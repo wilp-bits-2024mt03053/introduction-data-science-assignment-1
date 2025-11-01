@@ -4,10 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="author" content="Balasubramaniyan Murugappa" />
-  <meta name="author" content="Student ID: 2024mt03053" />
-  <meta name="author" content="Email: 2024mt03053@wilp.bits-pilani.ac.in" />
-  <title>Decision Tree Classifier Analysis on the Iris Dataset</title>
+  <title>README</title>
   <style>
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -240,16 +237,16 @@
   </style>
 </head>
 <body>
-<header id="title-block-header">
-<h1 class="title">Decision Tree Classifier Analysis on the Iris
-Dataset</h1>
-<p class="subtitle">Introduction to Data Science (S1-25_CCZG532) -
-Assignment #1</p>
-<p class="author">Balasubramaniyan Murugappa</p>
-<p class="author">Student ID: 2024mt03053</p>
-<p class="author">Email: 2024mt03053@wilp.bits-pilani.ac.in</p>
-<p class="date">Second Semester 2024-2025</p>
-</header>
+<h1 id="decision-tree-classifier-analysis-on-the-iris-dataset">Decision
+Tree Classifier Analysis on the Iris Dataset</h1>
+<p><strong>Course:</strong> Introduction to Data Science (S1-25_CCZG532)
+- Assignment #1<br />
+<strong>Author:</strong> Balasubramaniyan Murugappa<br />
+<strong>Student ID:</strong> 2024mt03053<br />
+<strong>Email:</strong> 2024mt03053@wilp.bits-pilani.ac.in<br />
+<strong>Institute:</strong> Birla Institute of Technology &amp; Science,
+Pilani<br />
+<strong>Date:</strong> Second Semester 2024-2025</p>
 <p>This repository contains the code and analysis for evaluating a
 Decision Tree classifier on the Iris dataset using a 6-fold stratified
 cross-validation methodology, submitted for the course Introduction to
@@ -537,15 +534,16 @@ maintained the original class proportions.</li>
 </ul></li>
 <li><p><strong>Model Construction:</strong> (<a
 href="#31-qualitative-assessment-decision-tree-structures">See
-Visualizations</a>)</p>
+Qualitative Assessment</a>)</p>
 <ul>
 <li>For each of the 6 folds, a Decision Tree was constructed using the
 training subset.</li>
 <li>Each generated tree was saved as a <code>.png</code> file for visual
 inspection.</li>
 </ul></li>
-<li><p><strong>Prediction and Metrics:</strong> (See Performance
-Metrics)</p>
+<li><p><strong>Prediction and Metrics:</strong> (<a
+href="#32-quantitative-assessment-performance-metrics">Performance
+Metrics</a>)</p>
 <ul>
 <li>Each trained tree was used to predict class labels for its
 corresponding test set.</li>
@@ -555,15 +553,19 @@ corresponding test set.</li>
 <li>Class-wise Precision, Recall, and Specificity.</li>
 </ul></li>
 </ul></li>
-<li><p><strong>Analysis:</strong> (See Analysis and Results)</p>
+<li><p><strong>Analysis:</strong> (<a href="#3-analysis-and-results">See
+Analysis and Results</a>)</p>
 <ul>
 <li><strong>a) Qualitative Assessment:</strong> The decision trees from
 all folds were compared to assess their structural differences and
-stability. (Details)</li>
+stability. (<a
+href="#31-qualitative-assessment-decision-tree-structures">See
+Details</a>)</li>
 <li><strong>b) Quantitative Assessment:</strong> The mean and variance
 for each performance metric were calculated across all folds. Box plots
-were also generated to visualize the distribution of these metrics.
-(Details)</li>
+were also generated to visualize the distribution of these metrics. (<a
+href="#32-quantitative-assessment-performance-metrics">See
+Details</a>)</li>
 </ul></li>
 </ol>
 <h2 id="how-to-run-the-code">6. How to Run the Code</h2>
@@ -673,5 +675,68 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a hr
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Score&#39;</span>)</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<hr />
+<h3 id="assignment-questions-report-linkages">Assignment Questions &amp;
+Report Linkages</h3>
+<table>
+<colgroup>
+<col style="width: 0%" />
+<col style="width: 67%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Link to Section in Report</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Assess the performance of Decision tree on the iris dataset by
+performing a 6 fold cross validation. Use stratified sampling in each of
+the folds.</td>
+<td><a
+href="#22-evaluation-strategy-6-fold-stratified-cross-validation">Methodology</a></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Construct a decision tree using the training data subset in each of
+the folds and save it as a png or jpg file.</td>
+<td><a
+href="#31-qualitative-assessment-decision-tree-structures">Qualitative
+Assessment: Decision Tree Structures</a></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Using the decision tree thus constructed, predict the class labels
+of the instances in the test set. Record the predicted labels and
+compute Accuracy and the following measures classwise : Precision,
+Recall, Specificity.</td>
+<td><a
+href="#32-quantitative-assessment-performance-metrics">Quantitative
+Assessment: Performance Metrics</a></td>
+</tr>
+<tr>
+<td>4a</td>
+<td>Qualitatively assess how different the decision trees in the
+different folds are.</td>
+<td><a
+href="#31-qualitative-assessment-decision-tree-structures">Qualitative
+Assessment: Decision Tree Structures</a></td>
+</tr>
+<tr>
+<td>4b</td>
+<td>Quantitative assessment : Calculate the mean and variance of each of
+the metrics specified in above step. Also draw box plots of each of the
+above specified metrics.</td>
+<td><a
+href="#32-quantitative-assessment-performance-metrics">Quantitative
+Assessment: Performance Metrics</a></td>
+</tr>
+</tbody>
+</table>
+<pre><code></code></pre>
 </body>
 </html>

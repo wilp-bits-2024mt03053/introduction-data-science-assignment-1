@@ -1,8 +1,5 @@
-jupyter
 scikit-learn
 pandas
 numpy
 matplotlib
 graphviz
-torch
-tinytex

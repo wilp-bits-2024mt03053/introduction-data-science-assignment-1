@@ -1,13 +1,11 @@
----
-title: 'Decision Tree Classifier Analysis on the Iris Dataset'
-subtitle: 'Introduction to Data Science (S1-25_CCZG532) - Assignment #1'
-author:
-  - Balasubramaniyan Murugappa
-  - 'Student ID: 2024mt03053'
-  - 'Email: 2024mt03053@wilp.bits-pilani.ac.in'
-institute: 'Birla Institute of Technology & Science, Pilani'
-date: 'Second Semester 2024-2025'
----
+# Decision Tree Classifier Analysis on the Iris Dataset
+
+**Course:** Introduction to Data Science (S1-25_CCZG532) - Assignment #1  
+**Author:** Balasubramaniyan Murugappa  
+**Student ID:** 2024mt03053  
+**Email:** 2024mt03053@wilp.bits-pilani.ac.in  
+**Institute:** Birla Institute of Technology & Science, Pilani  
+**Date:** Second Semester 2024-2025
 
 This repository contains the code and analysis for evaluating a Decision Tree classifier on the Iris dataset using a 6-fold stratified cross-validation methodology, submitted for the course Introduction to Data Science (S1-25_CCZG532).
 
@@ -141,21 +139,21 @@ This project was designed to meet a specific set of requirements for analyzing a
     - The well-known Iris dataset (4 attributes, 3 classes) was used.
     - A 6-fold stratified cross-validation was performed on the entire dataset to assess the Decision Tree's performance, ensuring each fold maintained the original class proportions.
 
-2.  **Model Construction:** ([See Visualizations](#31-qualitative-assessment-decision-tree-structures))
+2.  **Model Construction:** ([See Qualitative Assessment](#31-qualitative-assessment-decision-tree-structures))
 
     - For each of the 6 folds, a Decision Tree was constructed using the training subset.
     - Each generated tree was saved as a `.png` file for visual inspection.
 
-3.  **Prediction and Metrics:** (See Performance Metrics)
+3.  **Prediction and Metrics:** ([Performance Metrics](#32-quantitative-assessment-performance-metrics))
 
     - Each trained tree was used to predict class labels for its corresponding test set.
     - The following performance metrics were computed:
       - Overall Accuracy
       - Class-wise Precision, Recall, and Specificity.
 
-4.  **Analysis:** (See Analysis and Results)
-    - **a) Qualitative Assessment:** The decision trees from all folds were compared to assess their structural differences and stability. (Details)
-    - **b) Quantitative Assessment:** The mean and variance for each performance metric were calculated across all folds. Box plots were also generated to visualize the distribution of these metrics. (Details)
+4.  **Analysis:** ([See Analysis and Results](#3-analysis-and-results))
+    - **a) Qualitative Assessment:** The decision trees from all folds were compared to assess their structural differences and stability. ([See Details](#31-qualitative-assessment-decision-tree-structures))
+    - **b) Quantitative Assessment:** The mean and variance for each performance metric were calculated across all folds. Box plots were also generated to visualize the distribution of these metrics. ([See Details](#32-quantitative-assessment-performance-metrics))
 
 ## 6. How to Run the Code
 
@@ -260,4 +258,20 @@ plt.title('Performance Metrics Distribution Across 6 Folds')
 plt.ylabel('Score')
 plt.grid(True)
 plt.show()
+```
+
+---
+
+### Assignment Questions & Report Linkages
+
+| #   | Question                                                                                                                                                                                                                     | Link to Section in Report                                                                               |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| 1   | Assess the performance of Decision tree on the iris dataset by performing a 6 fold cross validation. Use stratified sampling in each of the folds.                                                                           | [Methodology](#22-evaluation-strategy-6-fold-stratified-cross-validation)                               |
+| 2   | Construct a decision tree using the training data subset in each of the folds and save it as a png or jpg file.                                                                                                              | [Qualitative Assessment: Decision Tree Structures](#31-qualitative-assessment-decision-tree-structures) |
+| 3   | Using the decision tree thus constructed, predict the class labels of the instances in the test set. Record the predicted labels and compute Accuracy and the following measures classwise : Precision, Recall, Specificity. | [Quantitative Assessment: Performance Metrics](#32-quantitative-assessment-performance-metrics)         |
+| 4a  | Qualitatively assess how different the decision trees in the different folds are.                                                                                                                                            | [Qualitative Assessment: Decision Tree Structures](#31-qualitative-assessment-decision-tree-structures) |
+| 4b  | Quantitative assessment : Calculate the mean and variance of each of the metrics specified in above step. Also draw box plots of each of the above specified metrics.                                                        | [Quantitative Assessment: Performance Metrics](#32-quantitative-assessment-performance-metrics)         |
+
+```
+
 ```
