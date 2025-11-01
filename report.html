@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Balasubramaniyan Murugappa" />
+  <meta name="author" content="Student ID: 2024mt03053" />
+  <meta name="author" content="Email: 2024mt03053@wilp.bits-pilani.ac.in" />
+  <title>Decision Tree Classifier Analysis on the Iris Dataset</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Decision Tree Classifier Analysis on the Iris
+Dataset</h1>
+<p class="subtitle">Introduction to Data Science (S1-25_CCZG532) -
+Assignment #1</p>
+<p class="author">Balasubramaniyan Murugappa</p>
+<p class="author">Student ID: 2024mt03053</p>
+<p class="author">Email: 2024mt03053@wilp.bits-pilani.ac.in</p>
+<p class="date">Second Semester 2024-2025</p>
+</header>
+<p>This repository contains the code and analysis for evaluating a
+Decision Tree classifier on the Iris dataset using a 6-fold stratified
+cross-validation methodology, submitted for the course Introduction to
+Data Science (S1-25_CCZG532).</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#1-project-objective">1. Project Objective</a></li>
+<li><a href="#2-methodology">2. Methodology</a></li>
+<li><a href="#3-analysis-and-results">3. Analysis and Results</a></li>
+<li><a href="#4-conclusion">4. Conclusion</a></li>
+<li><a href="#5-assignment-fulfillment-summary">5. Assignment
+Fulfillment Summary</a></li>
+<li><a href="#6-how-to-run-the-code">6. How to Run the Code</a></li>
+</ul>
+<h2 id="project-objective">1. Project Objective</h2>
+<p>The primary goal of this project is to build and rigorously evaluate
+a Decision Tree model for the classification of the Iris dataset. The
+analysis involves:</p>
+<ol type="1">
+<li>Implementing a <strong>6-fold stratified cross-validation</strong>
+process.</li>
+<li>Training and visualizing a Decision Tree for each fold.</li>
+<li>Evaluating each tree’s performance on its corresponding test set
+using a comprehensive set of metrics.</li>
+<li>Conducting a qualitative and quantitative analysis of the model’s
+performance and stability across all folds.</li>
+</ol>
+<h2 id="methodology">2. Methodology</h2>
+<h3 id="dataset">2.1. Dataset</h3>
+<p>The classic <strong>Iris dataset</strong> was used, which contains
+150 samples from three species of Iris flowers:</p>
+<ul>
+<li><code>Iris-setosa</code> (50 samples)</li>
+<li><code>Iris-versicolor</code> (50 samples)</li>
+<li><code>Iris-virginica</code> (50 samples)</li>
+</ul>
+<p>Each sample has four features:</p>
+<ul>
+<li>Sepal Length (cm)</li>
+<li>Sepal Width (cm)</li>
+<li>Petal Length (cm)</li>
+<li>Petal Width (cm)</li>
+</ul>
+<h3 id="evaluation-strategy-6-fold-stratified-cross-validation">2.2.
+Evaluation Strategy: 6-Fold Stratified Cross-Validation</h3>
+<p>A 6-fold cross-validation approach was chosen to evaluate the model.
+The entire dataset was used in this process.</p>
+<ul>
+<li><strong>Stratified Folds:</strong> The dataset was split into 6
+folds using stratification. This ensures that each fold maintains the
+same proportion of samples for each class as the original dataset (i.e.,
+each test fold of 25 instances contains approximately 8-9 samples from
+each of the three classes).</li>
+<li><strong>Training/Testing:</strong> In each of the 6 iterations, 5
+folds were used for training the model, and the remaining fold was used
+for testing.</li>
+</ul>
+<h3 id="model">2.3. Model</h3>
+<p>A <strong>Decision Tree Classifier</strong>, implemented using the
+<code>scikit-learn</code> library
+(<code>sklearn.tree.DecisionTreeClassifier</code>), was used for this
+analysis. The classifier was trained using its default parameters in
+each fold.</p>
+<h3 id="performance-metrics">2.4. Performance Metrics</h3>
+<p>The model’s performance was assessed using the following metrics:</p>
+<ul>
+<li><strong>Accuracy:</strong> The overall percentage of correct
+predictions.</li>
+<li><strong>Class-wise Precision:</strong> The ratio of correctly
+predicted positive observations to the total predicted positive
+observations (<code>TP / (TP + FP)</code>).</li>
+<li><strong>Class-wise Recall (Sensitivity):</strong> The ratio of
+correctly predicted positive observations to all observations in the
+actual class (<code>TP / (TP + FN)</code>).</li>
+<li><strong>Class-wise Specificity:</strong> The ratio of correctly
+predicted negative observations to all observations that are actually
+negative (<code>TN / (TN + FP)</code>).</li>
+</ul>
+<h2 id="analysis-and-results">3. Analysis and Results</h2>
+<h3 id="qualitative-assessment-decision-tree-structures">3.1.
+Qualitative Assessment: Decision Tree Structures</h3>
+<p>A Decision Tree was generated and saved for each of the 6 folds.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Fold 1</th>
+<th>Fold 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/decision_trees/iris_tree_fold_1.png"
+alt="Decision Tree for Fold 1" /></td>
+<td><img src="images/decision_trees/iris_tree_fold_2.png"
+alt="Decision Tree for Fold 2" /></td>
+</tr>
+<tr>
+<td><strong>Fold 3</strong></td>
+<td><strong>Fold 4</strong></td>
+</tr>
+<tr>
+<td><img src="images/decision_trees/iris_tree_fold_3.png"
+alt="Decision Tree for Fold 3" /></td>
+<td><img src="images/decision_trees/iris_tree_fold_4.png"
+alt="Decision Tree for Fold 4" /></td>
+</tr>
+<tr>
+<td><strong>Fold 5</strong></td>
+<td><strong>Fold 6</strong></td>
+</tr>
+<tr>
+<td><img src="images/decision_trees/iris_tree_fold_5.png"
+alt="Decision Tree for Fold 5" /></td>
+<td><img src="images/decision_trees/iris_tree_fold_6.png"
+alt="Decision Tree for Fold 6" /></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Observations:</strong></p>
+<ul>
+<li><strong>High Similarity:</strong> The trees generated across the
+different folds are remarkably similar, indicating that the model is
+stable and not overly sensitive to minor variations in the training
+data.</li>
+<li><strong>Primary Split:</strong> The root node in almost every tree
+splits the data based on <code>petal width</code> or
+<code>petal length</code>. This first split consistently and perfectly
+separates the <code>setosa</code> class from <code>versicolor</code> and
+<code>virginica</code>.</li>
+<li><strong>Secondary Splits:</strong> The subsequent splits, designed
+to separate <code>versicolor</code> from <code>virginica</code>, show
+slight variations in the feature used (e.g., <code>petal width</code>,
+<code>petal length</code>) and the exact threshold value. This is
+expected, as these two classes have some feature overlap.</li>
+<li><strong>Tree Depth:</strong> The trees are generally shallow
+(typically 3-4 levels deep), which suggests that the model can classify
+the data effectively without becoming overly complex or
+overfitting.</li>
+</ul>
+<h3 id="quantitative-assessment-performance-metrics">3.2. Quantitative
+Assessment: Performance Metrics</h3>
+<p>The performance metrics were calculated for each fold. The mean and
+variance across all 6 folds provide a robust measure of the model’s
+expected performance and consistency.</p>
+<h4 id="summary-of-metrics-mean-and-variance">Summary of Metrics (Mean
+and Variance)</h4>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th style="text-align: center;">Mean</th>
+<th style="text-align: center;">Variance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accuracy</strong></td>
+<td style="text-align: center;"><strong>0.953</strong></td>
+<td style="text-align: center;"><strong>0.0008</strong></td>
+</tr>
+<tr>
+<td><strong>Setosa</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td>Precision</td>
+<td style="text-align: center;">1.000</td>
+<td style="text-align: center;">0.0000</td>
+</tr>
+<tr>
+<td>Recall</td>
+<td style="text-align: center;">1.000</td>
+<td style="text-align: center;">0.0000</td>
+</tr>
+<tr>
+<td>Specificity</td>
+<td style="text-align: center;">1.000</td>
+<td style="text-align: center;">0.0000</td>
+</tr>
+<tr>
+<td><strong>Versicolor</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td>Precision</td>
+<td style="text-align: center;">0.926</td>
+<td style="text-align: center;">0.0031</td>
+</tr>
+<tr>
+<td>Recall</td>
+<td style="text-align: center;">0.958</td>
+<td style="text-align: center;">0.0035</td>
+</tr>
+<tr>
+<td>Specificity</td>
+<td style="text-align: center;">0.961</td>
+<td style="text-align: center;">0.0008</td>
+</tr>
+<tr>
+<td><strong>Virginica</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td>Precision</td>
+<td style="text-align: center;">0.965</td>
+<td style="text-align: center;">0.0024</td>
+</tr>
+<tr>
+<td>Recall</td>
+<td style="text-align: center;">0.907</td>
+<td style="text-align: center;">0.0070</td>
+</tr>
+<tr>
+<td>Specificity</td>
+<td style="text-align: center;">0.981</td>
+<td style="text-align: center;">0.0006</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Observations:</strong></p>
+<ul>
+<li>The model achieves a high <strong>mean accuracy of ~95.3%</strong>
+with very low variance, confirming its reliability.</li>
+<li>The <code>setosa</code> class is perfectly identified in all folds,
+with precision, recall, and specificity scores of 1.0 and zero
+variance.</li>
+<li>The metrics for <code>versicolor</code> and <code>virginica</code>
+are also very high, though they show some variance. The highest variance
+is seen in the recall for <code>virginica</code>, suggesting that the
+few misclassifications that occur are typically <code>virginica</code>
+flowers being mistaken for something else (likely
+<code>versicolor</code>).</li>
+</ul>
+<h4 id="box-plots-of-performance-metrics">Box Plots of Performance
+Metrics</h4>
+<p>The following box plots visualize the distribution of the metrics
+across the 6 folds.</p>
+<figure>
+<img src="images/metrics_box_plots.png"
+alt="Box Plots of Performance Metrics" />
+<figcaption aria-hidden="true">Box Plots of Performance
+Metrics</figcaption>
+</figure>
+<p><strong>Observations:</strong></p>
+<ul>
+<li>The box plot for <strong>Accuracy</strong> is narrow, centered high,
+and confirms the low variance and consistently strong performance.</li>
+<li>The plots for <strong>Versicolor</strong> and
+<strong>Virginica</strong> metrics show a slightly wider distribution,
+visually representing the calculated variance. However, the
+interquartile ranges are small, indicating that performance is stable
+for the majority of the folds.</li>
+</ul>
+<h2 id="conclusion">4. Conclusion</h2>
+<p>The Decision Tree classifier is a highly effective and stable model
+for the Iris dataset. The 6-fold stratified cross-validation
+demonstrates a consistent mean accuracy of over 95%.</p>
+<p>The qualitative analysis of the tree structures and the quantitative
+analysis of performance metrics both lead to the same conclusion: the
+model learns simple, generalizable rules and is not sensitive to small
+changes in the training data. While the <code>setosa</code> class is
+perfectly separable, the minor confusion between <code>versicolor</code>
+and <code>virginica</code> is minimal and reflects the inherent overlap
+in the data itself.</p>
+<h2 id="assignment-fulfillment-summary">5. Assignment Fulfillment
+Summary</h2>
+<p>This project was designed to meet a specific set of requirements for
+analyzing a Decision Tree on the Iris dataset. The following points
+summarize the tasks that were completed in this analysis:</p>
+<ol type="1">
+<li><p><strong>Dataset and Cross-Validation:</strong> (<a
+href="#2-methodology">See Methodology</a>)</p>
+<ul>
+<li>The well-known Iris dataset (4 attributes, 3 classes) was used.</li>
+<li>A 6-fold stratified cross-validation was performed on the entire
+dataset to assess the Decision Tree’s performance, ensuring each fold
+maintained the original class proportions.</li>
+</ul></li>
+<li><p><strong>Model Construction:</strong> (<a
+href="#31-qualitative-assessment-decision-tree-structures">See
+Visualizations</a>)</p>
+<ul>
+<li>For each of the 6 folds, a Decision Tree was constructed using the
+training subset.</li>
+<li>Each generated tree was saved as a <code>.png</code> file for visual
+inspection.</li>
+</ul></li>
+<li><p><strong>Prediction and Metrics:</strong> (See Performance
+Metrics)</p>
+<ul>
+<li>Each trained tree was used to predict class labels for its
+corresponding test set.</li>
+<li>The following performance metrics were computed:
+<ul>
+<li>Overall Accuracy</li>
+<li>Class-wise Precision, Recall, and Specificity.</li>
+</ul></li>
+</ul></li>
+<li><p><strong>Analysis:</strong> (See Analysis and Results)</p>
+<ul>
+<li><strong>a) Qualitative Assessment:</strong> The decision trees from
+all folds were compared to assess their structural differences and
+stability. (Details)</li>
+<li><strong>b) Quantitative Assessment:</strong> The mean and variance
+for each performance metric were calculated across all folds. Box plots
+were also generated to visualize the distribution of these metrics.
+(Details)</li>
+</ul></li>
+</ol>
+<h2 id="how-to-run-the-code">6. How to Run the Code</h2>
+<p>This analysis was conducted in a Jupyter Notebook
+(<code>.ipynb</code> file), which allows for a step-by-step execution of
+the code with clear explanations.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<ol type="1">
+<li><p><strong>Install Python Dependencies:</strong> Ensure you have
+Python 3. Then, install the required libraries using the
+<code>requirements.txt</code> file:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip install <span class="at">-r</span> requirements.txt</span></code></pre></div></li>
+<li><p><strong>Install Graphviz:</strong> &gt;
+<strong>Important:</strong> For visualizing the decision trees, you must
+also install the Graphviz software on your system. This is a separate
+installation from the Python <code>graphviz</code> library. You can
+download it from the official Graphviz website.</p></li>
+</ol>
+<h3 id="launching-the-notebook">6.1. Launching the Notebook</h3>
+<ol type="1">
+<li><p>Navigate to the project directory in your terminal.</p></li>
+<li><p>Launch Jupyter Notebook by running the command:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> notebook</span></code></pre></div></li>
+<li><p>Your web browser will open a new tab showing the Jupyter
+interface. Click on the notebook file (e.g.,
+<code>iris_decision_tree_analysis.ipynb</code>) to open it.</p></li>
+<li><p>You can run all cells at once by selecting <strong>Cell &gt; Run
+All</strong> from the menu.</p></li>
+</ol>
+<h3 id="notebook-structure-step-by-step">6.2. Notebook Structure
+(Step-by-Step)</h3>
+<p>The notebook is organized into the following logical sections.</p>
+<h4 id="part-1-setup-and-data-loading">Part 1: Setup and Data
+Loading</h4>
+<p>This section imports all the required libraries and loads the Iris
+dataset from <code>scikit-learn</code>. The data is then placed into a
+pandas DataFrame for easier manipulation.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier, export_graphviz</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, confusion_matrix</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>iris <span class="op">=</span> load_iris()</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.DataFrame(iris.data, columns<span class="op">=</span>iris.feature_names)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> pd.Series(iris.target)</span></code></pre></div>
+<h4 id="part-2-cross-validation-and-model-training-loop">Part 2:
+Cross-Validation and Model Training Loop</h4>
+<p>This is the core of the analysis. A <code>StratifiedKFold</code>
+object is created to split the data into 6 folds. The code then loops
+through each fold, training a <code>DecisionTreeClassifier</code> on the
+training data and visualizing the resulting tree using
+<code>graphviz</code>.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize 6-fold stratified cross-validation</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>skf <span class="op">=</span> StratifiedKFold(n_splits<span class="op">=</span><span class="dv">6</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fold, (train_index, test_index) <span class="kw">in</span> <span class="bu">enumerate</span>(skf.split(X, y)):</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Split data into training and testing sets for the current fold</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    X_train, X_test <span class="op">=</span> X.iloc[train_index], X.iloc[test_index]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    y_train, y_test <span class="op">=</span> y.iloc[train_index], y.iloc[test_index]</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Train the Decision Tree classifier</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    dt_classifier <span class="op">=</span> DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    dt_classifier.fit(X_train, y_train)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... (Code for prediction and metrics calculation) ...</span></span></code></pre></div>
+<h4 id="part-3-prediction-and-metrics-calculation">Part 3: Prediction
+and Metrics Calculation</h4>
+<p>Inside the loop, after the model is trained, it is used to predict
+the classes for the test set. The predictions are then compared against
+the true labels to calculate accuracy and class-wise metrics (Precision,
+Recall, Specificity) derived from the confusion matrix.</p>
+<h4 id="part-4-aggregating-results-and-final-analysis">Part 4:
+Aggregating Results and Final Analysis</h4>
+<p>The performance metrics from each of the 6 folds are stored in a list
+and then converted into a pandas DataFrame. This allows for easy
+calculation of the mean and variance for each metric, providing the
+final quantitative assessment.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (After the loop)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the list of results into a DataFrame</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>results_df <span class="op">=</span> pd.DataFrame(all_fold_metrics)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean and variance</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>mean_results <span class="op">=</span> results_df.mean()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>variance_results <span class="op">=</span> results_df.var()</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Mean Performance Metrics:</span><span class="ch">\n</span><span class="st">&quot;</span>, mean_results)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Variance of Performance Metrics:</span><span class="ch">\n</span><span class="st">&quot;</span>, variance_results)</span></code></pre></div>
+<h4 id="part-5-generating-box-plots">Part 5: Generating Box Plots</h4>
+<p>Finally, the collected results are used to generate box plots for
+each performance metric. This visualization helps in understanding the
+distribution and stability of the model’s performance across the
+different folds.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create box plots for the metrics</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>results_df.plot(kind<span class="op">=</span><span class="st">&#39;box&#39;</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&#39;Performance Metrics Distribution Across 6 Folds&#39;</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;Score&#39;</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+</body>
+</html>
